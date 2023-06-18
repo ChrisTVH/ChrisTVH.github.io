@@ -19,6 +19,32 @@
   <style> </style>
 
 
+  <!-- Graph View Data -->
+  <script>
+    let nodes = {
+      "nodeCount": 26,
+      "linkCount": 42,
+      "radii": [7, 3.9375, 3.9375, 3.9375, 3.9375, 3.9375, 3.9375, 3.9375, 3.9375, 3.9375, 3.9375, 3.9375, 3.9375, 3.9375, 3.9375, 3.9375, 3.9375, 3.9375, 3.9375, 3.484375, 3.484375, 3.484375, 3.484375, 3.484375, 3.484375, 3],
+      "labels": ["Index", "Una oscura esquina en el pasado", "Un sentimiento desconocido", "Un pequeño Anhelo", "Solo quiero un sueño más", "Mi deseo tan anhelado", "Los cerezos en otoño", "Fragmentos de recuerdos", "Estrellas fugaces", "En el abismo", "Días aciagos", "Dulce hogar", "Dulce frío", "Desde las alturas", "Vida diaria", "Reflexión de la amistad", "El Aprendizaje", "Mi punto de vista del mundo", "Aquel que soñaba y deseaba con fuerte anhelo", "Poema", "Pensamiento", "Historia", "Diccionario", "Trozos de poemas", "Ilustre", "Melodías"],
+      "paths": ["index.html", "secciones/poemas/una-oscura-esquina-en-el-pasado.html", "secciones/poemas/un-sentimiento-desconocido.html", "secciones/poemas/un-pequeño-anhelo.html", "secciones/poemas/solo-quiero-un-sueño-más.html", "secciones/poemas/mi-deseo-tan-anhelado.html", "secciones/poemas/los-cerezos-en-otoño.html", "secciones/poemas/fragmentos-de-recuerdos.html", "secciones/poemas/estrellas-fugaces.html", "secciones/poemas/en-el-abismo.html", "secciones/poemas/días-aciagos.html", "secciones/poemas/dulce-hogar.html", "secciones/poemas/dulce-frío.html", "secciones/poemas/desde-las-alturas.html", "secciones/pensamientos/vida-diaria.html", "secciones/pensamientos/reflexión-de-la-amistad.html", "secciones/pensamientos/el-aprendizaje.html", "secciones/pensamientos/mi-punto-de-vista-del-mundo.html", "secciones/historias/aquel-que-soñaba-y-deseaba-con-fuerte-anhelo.html", "plantillas/poema.html", "plantillas/pensamiento.html", "plantillas/historia.html", "plantillas/diccionario.html", "diccionario/trozos-de-poemas.html", "diccionario/contenidos/ilustre.html", "melodías.html"],
+      "linkSources": [24, 23, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 22, 21, 20, 19, 18, 16, 17, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1],
+      "linkTargets": [0, 0, 13, 10, 12, 11, 9, 8, 7, 6, 5, 4, 3, 2, 1, 16, 17, 15, 14, 18, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    };
+    let attractionForce = 1;
+    let linkLength = 10;
+    let repulsionForce = 150;
+    let centralForce = 3;
+    let edgePruning = 100;
+  </script>
+
+  <script type="module" src="lib/scripts/graph_view.js"></script>
+
+  <script src="lib/scripts/graph_wasm.js"></script>
+
+  <script src="lib/scripts/tinycolor.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/7.2.4/pixi.min.js" integrity="sha512-Ch/O6kL8BqUwAfCF7Ie5SX1Hin+BJgYH4pNjRqXdTEqMsis1TUYg+j6nnI9uduPjGaj7DN4UKCZgpvoExt6dkw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
   <script src="lib/scripts/webpage.js"></script>
 
 </head>
@@ -373,7 +399,16 @@
       </div>
     </div>
     <div class="sidebar-right sidebar">
-      <div class="sidebar-content">
+      <div class="sidebar-content"><span class="sidebar-section-header">Interactive Graph</span>
+        <div class="graph-view-placeholder">
+          <div class="graph-view-container">
+            <div class="graph-icon graph-expand" role="button" aria-label="Expand" data-tooltip-position="top"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-arrow-up-right">
+                <line x1="7" y1="17" x2="17" y2="7"></line>
+                <polyline points="7 7 17 7 17 17"></polyline>
+              </svg></div>
+            <canvas id="graph-canvas" width="512px" height="512px"></canvas>
+          </div>
+        </div>
         <div class="tree-container outline-tree" data-depth="0">
           <div class="tree-header"><span class="sidebar-section-header">Table Of Contents</span><button class="clickable-icon collapse-tree-button"><iconify-icon icon="ph:arrows-in-line-horizontal-bold" width="18px" height="18px" rotate="90deg" color="currentColor"></iconify-icon></button></div>
           <div class="tree-scroll-area">
